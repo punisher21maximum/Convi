@@ -44,3 +44,13 @@ class Profile_Student(models.Model):
     
     def __str__(self):
         return f'{self.user.username} Profile Student'
+
+class Profile_Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Branch_CHOICES=[('CS','CS'),('Mech','Mech'),('ENTC','ENTC'),('IT','IT'),
+    ('CHEM','CHEM'),('ETX','ETX'),('Civil','Civil'),('FY','FY')]
+    branch=models.CharField(max_length=100,choices=Branch_CHOICES,default='CS')
+    post_of_teacher = models.CharField(max_length=100,blank='True')
+
+    def __str__(self):
+        return f'{self.user.username} Profile Teacher'
