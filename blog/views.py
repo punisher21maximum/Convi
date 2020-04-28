@@ -91,7 +91,7 @@ class EnotesListView(ListView):
     template_name = 'blog/enotes-home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'enotes'
     ordering = ['-date_posted']
-    paginate_by = 6
+    paginate_by = 3
 
 class EnotesDetailView(DetailView):
     model = Enotes

@@ -8,16 +8,16 @@
       <div class="container" style="text-align">
         <!-- row1 -->
         <div class="row">
-          <div class="col-2" style="font-size:10px;color:#533b78;">
+          <div class="col-2 mt-3" style="font-size:10px;color:#533b78;">
             <p class="mb-0">{{object.notes_author}}</p> 
             <b>{{object.author_name}}</b>
 
           </div>
           <div class="col-2" style="font-size:30px;color:#533b78;">
-            <p > Unit {{object.unit}}</p>
+            <p > {{"Unit"|upper}} {{object.unit|upper}}</p>
           </div>
           <div class="col-5" style="font-size:30px;color:#533b78;">
-            <b>{{object.topic}}</b>
+            <b>{{object.topic|upper}}</b>
           </div>
           <div class="col-3 text-align-right" style="text-align:right;">
             <p class="mb-0"><i>Posted by </i> {{object.author}}</p>
@@ -74,6 +74,7 @@
       </div>
     </div>
   </article>
+  <br><br><br><br>
 {% endblock content %}
 
 <!-- <embed src="/media/Python.pdf"> -->

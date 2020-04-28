@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, Profile_Student
 
 
 class UserRegisterForm(UserCreationForm):
@@ -23,4 +23,9 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image', 'first_name', 'last_name', 'phone_number']
+
+class ProfileStudentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile_Student
+        fields = ['branch', 'academic_year', 'batch', 'roll_no']
