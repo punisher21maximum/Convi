@@ -9,12 +9,19 @@
         {% if object.author == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Deleteeeee</a>
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ object.title }}</h2>
+      <h2 class="article-title">{{ object.title D@c object.blog_file.url }}</h2>
       <p class="article-content">{{ object.content }}</p>
+      {% if object.blog_file %}
+        <a href="{{ object.blog_file.url }}" target="_blank" >
+          <button type="button" class="text-center   button_engg  btn-lg ">
+            <h1><b>Download</b></h1>
+          </button>
+        </a>
+      {% endif %}
     </div>
   </article>
 {% endblock content %}

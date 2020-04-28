@@ -1,15 +1,22 @@
 {% extends "blog/base.html" %}
+{% block content1 %}
+    
+{% endblock content1 %}
+
 {% block content %}
 <!-- <div class="col-md-12"> -->
 	<div class="row">
     {% for post in posts %}
 
 <!-- card -->
-                <div class="card" style="width: 33%;margin-bottom: 15px;padding:10px;">
-                  <img style="height:350px" src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
+                <div class="card mr-3" style="width: 30%;margin-bottom: 40px;padding:0px;">
+                  <img style="height:130px" src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
                   <div class="card-body">
-                    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-                    <p class="card-text">{{ post.content | truncatechars:100}}</p>
+                    <p><b><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></b></p>
+                    <i>by</i>
+                    <strong><a class="article-title" href="{% url 'user-posts' post.author.username %}">
+                    	{{ post.author|upper }}</a></strong>
+                    <p class="card-text">{{ post.content | truncatechars:50}}</p>
                 <!--       <a href="#" class="btn btn-primary">Go somewhere</a> -->    
                   </div>
                 </div>

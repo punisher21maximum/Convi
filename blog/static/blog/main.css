@@ -1,6 +1,12 @@
+#the-canvas{
+  border : 1px solid black;
+  direction : ltr;
+
+}
+
 body {
-  background: #fafafa;
-  color: #333333;
+/*  background: #fafafa;
+  color: #333333;*/
   margin-top: 5rem;
 }
 
@@ -81,4 +87,8 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.step{
+  font-size: 30px;
 }

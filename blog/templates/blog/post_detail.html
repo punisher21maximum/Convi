@@ -5,7 +5,7 @@
     <div class="media-body">
       <div class="article-metadata">
         <a class="mr-2" href="#">{{ object.author }}</a>
-        <small class="text-muted">{{ object.date_posted}}</small>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
         {% if object.author == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
@@ -13,53 +13,20 @@
           </div>
         {% endif %}
       </div>
-      <br>
-      <h2 class="article-title">{{ object.title }}</h2>
+      <h2 class="article-title">{{ object.title  }}</h2>
       <p class="article-content">{{ object.content }}</p>
+      {% if object.blog_file %}
+        <a href="{{ object.blog_file.url }}" target="_blank" >
+          <button type="button" class="text-center btn-lg ">
+            Download
+          </button>
+        </a>
+        <hr>
+        <embed src="{{ object.blog_file.url }}" width="100%" height="700px"> 
+      {% endif %}
     </div>
   </article>
-   <div class="row float" >
-        <div class="col-md-4">
-            <!-- card -->
-            <div class="card" style="width: 100%;">
-              <img style="height:350px" src="{{ object.author.profile.image.url }}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ object.title }}</h5>
-                <p class="card-text">{{ object.content | truncatechars:100}}</p>
-            <!--       <a href="#" class="btn btn-primary">Go somewhere</a> -->    
-              </div>
-            </div>
-            <!-- card end -->
-        </div>
-        <div class="col-md-4">
-              <!-- card -->
-            <div class="card" style="width: 100%;">
-              <img style="height:350px" src="{{ object.author.profile.image.url }}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ object.title }}</h5>
-                <p class="card-text">{{ object.content | truncatechars:100}}</p>
-            <!--       <a href="#" class="btn btn-primary">Go somewhere</a> -->    
-              </div>
-            </div>
-            <!-- card end -->
-        </div>
-        <div class="col-md-4">
-            <!-- card -->
-            <div class="card" style="width: 100%;">
-              <img style="height:350px" src="{{ object.author.profile.image.url }}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ object.title }}</h5>
-                <p class="card-text">{{ object.content | truncatechars:100}}</p>
-            <!--       <a href="#" class="btn btn-primary">Go somewhere</a> -->    
-              </div>
-            </div>
-            <!-- card end -->
-        </div>
-    </div>
-           
-  <hr>
-  <hr>
-  <hr>
-  <hr>
-
 {% endblock content %}
+
+<!-- <embed src="/media/Python.pdf"> -->
+<!-- <iframe href="{{ object.blog_file.url }}"></iframe> -->
