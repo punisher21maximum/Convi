@@ -35,3 +35,8 @@ class ProfileTeacherUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile_Teacher
         fields = ['branch', 'post_of_teacher']
+
+
+
+
+        

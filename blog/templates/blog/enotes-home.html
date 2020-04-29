@@ -1,12 +1,51 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
 {% block content1 %}
     
 {% endblock content1 %}
 
 {% block content %}
 <!-- <div class="col-md-12"> -->
-	<div class="row">
-    {% for enote in enotes %}
+  <div class="container">
+    <div class="row">
+      <form method="GET">
+              <div class="form-row">
+<div class="form-group col-md-3 "> 
+   {{ filter.form.desc|as_crispy_field }}
+   {{ filter.form.author|as_crispy_field }}
+   
+</div>
+                                    <div class="form-group col-md-3">
+                                      {{ filter.form.academic_year|as_crispy_field }}
+                                      {{ filter.form.sub|as_crispy_field }}    
+                                      {{ filter.form.branch|as_crispy_field }} 
+                                    </div>
+<div class="form-group col-md-3">
+  {{ filter.form.notes_author|as_crispy_field }}
+  {{ filter.form.author_name|as_crispy_field }}
+  <button type="reset" class="text-center button_engg btn-block  mt-10">
+          <p class="text-center " >Clear</p>
+        </button>
+</div>
+
+                            <div class="form-group col-md-3">
+                                {{ filter.form.topic|as_crispy_field }}  
+                                {{ filter.form.unit|as_crispy_field }}
+                                <button type="submit" class="text-center button_engg btn-block  mt-10">
+          <p class="text-center " >search</p>
+        </button>
+                            </div>
+
+          
+        </div>  
+      </form>  
+    </div>
+  </div>  
+
+
+	<div class="row" style="padding:10px;">
+  <hr>
+    {% for enote in filter.qs %}
 
 <!-- card -->
       <div class="card " style="width: 33%;margin-bottom: 0px;padding:10px;">
@@ -89,8 +128,8 @@
 
     {% endfor %}
    	</div>
-<!-- </div> -->
-    {% if is_paginated %}
+
+     {% if is_paginated %}
     <br><br><br><br>
       {% if page_obj.has_previous %}
         <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
@@ -111,4 +150,5 @@
       {% endif %}
 
     {% endif %}
+    
 {% endblock content %}

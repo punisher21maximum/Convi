@@ -10,6 +10,8 @@ from django.views.generic import (
 from .models import Post, Enotes
 from django.contrib.auth.models import User
 
+from .filters import EnotesFilter
+
 def home(request):
     context = {
         'posts': Post.objects.all()
@@ -87,11 +89,19 @@ def about(request):
 #enotes
 
 class EnotesListView(ListView):
-    model = Enotes
+    # model = Enotes
     template_name = 'blog/enotes-home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'enotes'
-    ordering = ['-date_posted']
+    # ordering = ['-date_posted']
     paginate_by = 3
+
+    def get_context_data(self,**kwargs):
+        context = super(EnotesListView,self).get_context_data(**kwargs)
+        context['filter'] = EnotesFilter(self.request.GET,queryset=self.get_queryset())
+        return context
+
+    def get_queryset(self):
+        return Enotes.objects.all()
 
 class EnotesDetailView(DetailView):
     model = Enotes
