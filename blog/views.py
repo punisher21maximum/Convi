@@ -10,7 +10,7 @@ from django.views.generic import (
 from .models import Post, Enotes, QuesPaper
 from django.contrib.auth.models import User
 
-from .filters import EnotesFilter
+from .filters import EnotesFilter, QuesPaperFilter
 
 def home(request):
     context = {
@@ -152,19 +152,19 @@ class EnotesDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class QuesPaperListView(ListView):
-    model = QuesPaper
+    # model = QuesPaper
     template_name = 'blog/ques_ppr-home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'quespprs'
-    # ordering = ['-date_posted']
+    ordering = ['-date_posted']
     paginate_by = 3
 
-    # def get_context_data(self,**kwargs):
-    #     context = super(EnotesListView,self).get_context_data(**kwargs)
-    #     context['filter'] = EnotesFilter(self.request.GET,queryset=self.get_queryset())
-    #     return context
+    def get_context_data(self,**kwargs):
+        context = super(QuesPaperListView,self).get_context_data(**kwargs)
+        context['filter'] = QuesPaperFilter(self.request.GET,queryset=self.get_queryset())
+        return context
 
-    # def get_queryset(self):
-    #     return Enotes.objects.all()
+    def get_queryset(self):
+        return QuesPaper.objects.all()
 
 class QuesPaperDetailView(DetailView):
     model = QuesPaper
