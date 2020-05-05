@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Enotes
+from .models import Post, Enotes, QuesPaper
 from django.contrib.auth.models import User
 
 from .filters import EnotesFilter
@@ -142,3 +142,39 @@ class EnotesDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == model_name.author:
             return True
         return False
+
+# Ques paper : QuesPaper
+
+
+class QuesPaperListView(ListView):
+    model = QuesPaper
+    template_name = 'blog/ques_ppr-home.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'quespprs'
+    # ordering = ['-date_posted']
+    paginate_by = 3
+
+    # def get_context_data(self,**kwargs):
+    #     context = super(EnotesListView,self).get_context_data(**kwargs)
+    #     context['filter'] = EnotesFilter(self.request.GET,queryset=self.get_queryset())
+    #     return context
+
+    # def get_queryset(self):
+    #     return Enotes.objects.all()
+
+class QuesPaperDetailView(DetailView):
+    model = QuesPaper
+    template_name = 'blog/quespaper_detail.html'
+
+class QuesPaperCreateView(LoginRequiredMixin, CreateView):
+    model = QuesPaper
+    fields = ['sem_exam', 'total_marks', 'exam_date', 'exam_type', 'fileMy',
+    'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
+
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_absolute_url(self):
+        return "ques-paper-home/"

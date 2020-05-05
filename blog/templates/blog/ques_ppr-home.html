@@ -8,49 +8,19 @@
 <!-- <div class="col-md-12"> -->
   <div class="container filter_text" >
     <div class="row">
-      <form method="GET">
-              <div class="form-row">
-<div class="form-group col-md-3 article-title"> 
-   {{ filter.form.desc|as_crispy_field }}
-   {{ filter.form.author|as_crispy_field }}
-   
-</div>
-                                    <div class="form-group col-md-3">
-                                      {{ filter.form.academic_year|as_crispy_field }}
-                                      {{ filter.form.sub|as_crispy_field }}    
-                                      {{ filter.form.branch|as_crispy_field }} 
-                                    </div>
-<div class="form-group col-md-3">
-  {{ filter.form.notes_author|as_crispy_field }}
-  {{ filter.form.author_name|as_crispy_field }}
-  <button type="reset" class="text-center button_engg btn-block  mt-10">
-          <p class="text-center " >Clear</p>
-        </button>
-</div>
-
-                            <div class="form-group col-md-3">
-                                {{ filter.form.topic|as_crispy_field }}  
-                                {{ filter.form.unit|as_crispy_field }}
-                                <button type="submit" class="text-center button_engg btn-block  mt-10">
-          <p class="text-center " >search</p>
-        </button>
-                            </div>
-
-          
-        </div>  
-      </form>  
+      
     </div>
   </div>  
 
 
 	<div class="row" style="padding:10px;">
   <hr>
-    {% for enote in filter.qs %}
+    {% for qp in quespprs %}
 
 <!-- card -->
       <div class="card " style="width: 33%;margin-bottom: 0px;padding:10px;">
 
-        <a class="article-title" href="{% url 'enotes-detail' enote.id %}"><img style="height:130px; padding:7px" src="{{ enote.author.profile.image.url }}" class="card-img-top" alt="..."></a>
+        <a class="article-title" href="{% url 'ques-paper-detail' qp.id %}"><img style="height:130px; padding:7px" src="{{ qp.author.profile.image.url }}" class="card-img-top" alt="..."></a>
         
         <br>
         <div class="row">
@@ -58,15 +28,17 @@
                 <p style="font-size: 15px; font-weight: 100;">NehaDAA2k20</p>
             </div>
             <div class="col-6" style="text-align: right;">
-            <b><i>{{ enote.author|upper }}</i></b>
+            <b><i>{{ qp.author|upper }}</i></b>
             </div>
         </div>
 
         <div style="text-align: center; color:#8465b3;">
             <p style="font-size: 20px; font-weight: 400;"> 
-                {{enote.academic_year}} &nbsp {{enote.branch}}  &nbsp {{enote.sub}}</p>  
+                {{qp.academic_year}} &nbsp {{qp.branch}}  &nbsp {{qp.sub}}</p>  
             <b style="color:#533b78;font:15px;"> 
-                Topic : {{enote.topic}}</b>
+                Exam Date : {{qp.exam_date|date:"M d, y"}}<br>
+                {{qp.total_marks}} Marks
+            </b>
         </div>
         <hr>
 
@@ -74,10 +46,10 @@
 
                     <div class="row" style="color:#6b4c9a;font-size:18px; font-weight: 600;">
                     <div class="col-sm-4">
-                       <p > Unit {{enote.unit}}</p> 
+                       <p > {{qp.sem_exam}}</p> 
                     </div>
                     <div class="col-sm-5" style="font-size:15px;">
-                        {{enote.date_posted|date:"M d, y"}}
+                        {{qp.date_posted|date:"M d, y"}}
                     </div>
                     <div class="col-sm-3">
                         star
@@ -90,17 +62,26 @@
                     font-size: 13px;
                     font-weight: 600;">
                         <div class="col-4">
-                            {{enote.notes_author}}
+                            {{qp.exam_type}}
                         </div>
                         <div class="col-4">
                             pdf
                         </div>
                         <div class="col-4">
-                            <a href="{{ object.fileMy.url }}" target="_blank" >
+                            {% if qp.fileMy %}
+                            <a href="{{ qp.fileMy.url }}" target="_blank" >
                               <button type="button" class="text-center  ">
                                 Download
                               </button>
                             </a>
+                            {% else %}
+                            <a href="{% url 'ques-paper-detail' qp.id %}" target="_blank" >
+                              <button type="button" class="text-center  ">
+                                Detail
+                              </button>
+                            </a>
+                            {% endif %}
+
                         </div>
                     </div>
 
@@ -121,7 +102,7 @@
                 </div>
             <hr>
                 <p style="color:#533b78;padding:10px" >
-                    {{enote.desc}}</p>
+                    {{qp.desc}}</p>
             
       </div>
 <!-- card end -->

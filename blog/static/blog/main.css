@@ -4,6 +4,12 @@
 
 }
 
+.filter_text
+{
+  font: 20;
+  color: #533b78;
+}
+
 body {
 /*  background: #fafafa;
   color: #333333;*/
@@ -92,3 +98,4 @@ a.article-title:hover {
 .step{
   font-size: 30px;
 }
+

@@ -11,7 +11,11 @@ from .views import (
     EnotesListView,
     EnotesDetailView,
     EnotesUpdateView,
-    EnotesDeleteView
+    EnotesDeleteView,
+    #ques paper
+    QuesPaperListView,
+    QuesPaperDetailView,
+    QuesPaperCreateView
 )
 from . import views
 
@@ -29,5 +33,9 @@ urlpatterns = [
     path('enotes/<int:pk>/', EnotesDetailView.as_view(), name='enotes-detail'),
     path('enotes/<int:pk>/update/', EnotesUpdateView.as_view(), name='enotes-update'),
     path('enotes/<int:pk>/delete/', EnotesDeleteView.as_view(), name='post-delete'),
+    #quespaper
+    path('quespaper/new/', QuesPaperCreateView.as_view(), name='ques-paper-create'),
+    path('quespaper/', QuesPaperListView.as_view(), name='ques-paper-home'),
+    path('quespaper/<int:pk>/', QuesPaperDetailView.as_view(), name='ques-paper-detail'),
 
 ]

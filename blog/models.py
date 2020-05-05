@@ -55,11 +55,13 @@ class College(Common):
 		abstract = True
 
 class Enotes(College):
+	#unique
 	topic = models.CharField(max_length=100)
 	unit = models.PositiveIntegerField(blank=True, default=1)
 	Notes_author_CHOICES=[('teacher','Teacher'),('student','Student'),('other','Other')]
 	notes_author = models.CharField(max_length=lenn,choices=Notes_author_CHOICES,default='Anonymous')
 	author_name = models.CharField(max_length=100)
+	#soft copy
 	fileMy = models.FileField(upload_to='blog_pdf',blank=True)
 
 	def __str__(self):
@@ -69,3 +71,20 @@ class Enotes(College):
 		return reverse('enotes-detail', kwargs={'pk': self.pk})
     
 	
+class QuesPaper(College):
+	#unique
+	Sem_exam_CHOICES=[('ISE1','ISE1'),('ISE2','ISE2'),('MSE','MSE'),('ESE','ESE'),
+	('ISE','ISE')]
+	sem_exam = models.CharField(max_length=100,choices=Sem_exam_CHOICES,default='ESE')
+	total_marks = models.PositiveIntegerField(blank=True, default=100)
+	exam_date = models.DateTimeField(default=timezone.now)
+	Exam_type_CHOICES = [ ('Regular', 'Regular'), ('Re-exam', 'Re-exam')]
+	exam_type = models.CharField(max_length=100,choices=Exam_type_CHOICES,default='Rgular')
+	#soft copy
+	fileMy = models.FileField(upload_to='Ques_papers',blank=True)
+
+	def __str__(self):
+		return self.sem_exam
+
+	def get_absolute_url(self):
+		return reverse('ques-paper-detail', kwargs={'pk': self.pk})
