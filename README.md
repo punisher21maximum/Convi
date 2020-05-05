@@ -1,6 +1,7 @@
 # Convi
 
 ## Python 3.6 , Django 3.0.0
+##### use virtual env 
 
 ### You might get an error for some packgaes not installed
 
