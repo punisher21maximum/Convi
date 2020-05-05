@@ -73,6 +73,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
+    template_name = 'blog/post_confirm_delete.html'
 
     def test_func(self):
         post = self.get_object()
@@ -106,10 +107,12 @@ class EnotesListView(ListView):
 class EnotesDetailView(DetailView):
     model = Enotes
 
+
 class EnotesCreateView(LoginRequiredMixin, CreateView):
     model = Enotes
     fields = ['topic', 'unit', 'notes_author', 'author_name', 'fileMy',
     'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -122,6 +125,7 @@ class EnotesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Enotes
     fields = ['topic', 'unit', 'notes_author', 'author_name', 'fileMy',
     'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -136,6 +140,7 @@ class EnotesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class EnotesDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Enotes
     success_url = '/'
+    template_name = 'blog/post_confirm_delete.html'
 
     def test_func(self):
         model_name = self.get_object()
@@ -178,3 +183,30 @@ class QuesPaperCreateView(LoginRequiredMixin, CreateView):
 
     def get_absolute_url(self):
         return "ques-paper-home/"
+
+class QuesPaperUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = QuesPaper
+    fields = ['sem_exam', 'total_marks', 'exam_date', 'exam_type', 'fileMy',
+    'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        qp = self.get_object()
+        if self.request.user == qp.author:
+            return True
+        return False
+
+class QuesPaperDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = QuesPaper
+    success_url = '/'
+    template_name = 'blog/post_confirm_delete.html'
+
+    def test_func(self):
+        model_name = self.get_object()
+        if self.request.user == model_name.author:
+            return True
+        return False
