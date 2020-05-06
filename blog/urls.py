@@ -17,7 +17,13 @@ from .views import (
     QuesPaperDetailView,
     QuesPaperCreateView,
     QuesPaperUpdateView,
-    QuesPaperDeleteView
+    QuesPaperDeleteView,
+    #pracs
+    PracsListView,
+    PracsDetailView,
+    PracsCreateView,
+    PracsUpdateView,
+    PracsDeleteView
 )
 from . import views
 
@@ -44,5 +50,11 @@ urlpatterns = [
         name='ques-paper-update'),
     path('quespaper/<int:pk>/delete/', QuesPaperDeleteView.as_view(), 
         name='ques-paper-delete'),
+    #pracs
+    path('pracs/new/', PracsCreateView.as_view(), name='pracs-create'),
+    path('pracs/', PracsListView.as_view(), name='pracs-home'),
+    path('pracs/<int:pk>/', PracsDetailView.as_view(), name='pracs-detail'),
+    path('pracs/<int:pk>/update/', PracsUpdateView.as_view(), name='pracs-update'),
+    path('pracs/<int:pk>/delete/', PracsDeleteView.as_view(), name='pracs-delete'),
 
 ]

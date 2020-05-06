@@ -1,0 +1,126 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content1 %}
+    
+{% endblock content1 %}
+
+{% block content %}
+<!-- <div class="col-md-12"> -->
+  <div class="container filter_text" >
+    <div class="row">
+       
+    </div>
+  </div>  
+
+
+	<div class="row" style="padding:10px;">
+  <hr>
+    {% for prac in pracs %}
+
+<!-- card -->
+      <div class="card " style="width: 33%;margin-bottom: 0px;padding:10px;">
+
+        <a class="article-title" href="{% url 'pracs-detail' prac.id %}"><img style="height:130px; padding:7px" src="{{ prac.author.profile.image.url }}" class="card-img-top" alt="..."></a>
+        
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <p style="font-size: 15px; font-weight: 100;">Practicals</p>
+            </div>
+            <div class="col-6" style="text-align: right;">
+            <b><i>{{ prac.author|upper }}</i></b>
+            </div>
+        </div>
+
+        <div style="text-align: center; color:#8465b3;">
+            <p style="font-size: 20px; font-weight: 400;"> 
+                {{prac.academic_year}} &nbsp {{prac.branch}}  &nbsp {{prac.sub}}</p>  
+            <b style="color:#533b78;font:15px;"> 
+                Topic : {{prac.topic}}</b>
+            <p style="color:#533b66;font:10px;"> 
+                {{prac.question}}</p>
+        </div>
+        <hr>
+
+        <div class="container"  >
+
+                    <div class="row" style="color:#6b4c9a;font-size:18px; font-weight: 600;">
+                    <div class="col-sm-4">
+                       <p > </p> 
+                    </div>
+                    <div class="col-sm-5" style="font-size:15px;">
+                        {{prac.date_posted|date:"M d, y"}}
+                    </div>
+                    <div class="col-sm-3">
+                        star
+                    </div>
+                    </div>
+
+                    
+                    <div class="row" 
+                    style="color:#533b78; 
+                    font-size: 13px;
+                    font-weight: 600;">
+                        <div class="col-4">
+                            {{prac.pracs_author}}
+                        </div>
+                        <div class="col-4">
+                            pdf
+                        </div>
+                        <div class="col-4">
+                            <a href="{{ object.fileMy.url }}" target="_blank" >
+                              <button type="button" class="text-center  ">
+                                Download
+                              </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row" 
+                    style="color:#533b78; 
+                    font-size: 13px;
+                    font-weight: 600;">
+                        <div class="col-4">
+                            CS302  
+                        </div>
+                        <div class="col-4">
+                            1 file
+                        </div>
+                        <div class="col-4">
+                            23 pgs
+                        </div>
+                    </div>
+                </div>
+            <hr>
+                <p style="color:#533b78;padding:10px" >
+                    {{prac.desc}}</p>
+            
+      </div>
+<!-- card end -->
+
+    {% endfor %}
+   	</div>
+
+     {% if is_paginated %}
+    <br><br><br><br>
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+    
+{% endblock content %}

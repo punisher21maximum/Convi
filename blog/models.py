@@ -88,3 +88,19 @@ class QuesPaper(College):
 
 	def get_absolute_url(self):
 		return reverse('ques-paper-detail', kwargs={'pk': self.pk})
+
+class Pracs(College):
+	#unique
+	topic = models.CharField(max_length=100)
+	question = models.CharField(max_length=100)
+	Pracs_author_CHOICES=[('teacher','Teacher'),('student','Student'),('other','Other')]
+	pracs_author = models.CharField(max_length=lenn,choices=Pracs_author_CHOICES,default='Anonymous')
+	author_name = models.CharField(max_length=100)
+	#soft copy
+	fileMy = models.FileField(upload_to='Pracs',blank=True)
+
+	def __str__(self):
+		return self.topic
+
+	def get_absolute_url(self):
+		return reverse('pracs-detail', kwargs={'pk': self.pk})

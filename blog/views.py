@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Enotes, QuesPaper
+from .models import Post, Enotes, QuesPaper, Pracs
 from django.contrib.auth.models import User
 
 from .filters import EnotesFilter, QuesPaperFilter
@@ -139,7 +139,7 @@ class EnotesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class EnotesDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Enotes
-    success_url = '/'
+    success_url = '/enotes/'
     template_name = 'blog/post_confirm_delete.html'
 
     def test_func(self):
@@ -202,7 +202,69 @@ class QuesPaperUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class QuesPaperDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = QuesPaper
-    success_url = '/'
+    success_url = '/quespaper/'
+    template_name = 'blog/post_confirm_delete.html'
+
+    def test_func(self):
+        model_name = self.get_object()
+        if self.request.user == model_name.author:
+            return True
+        return False
+
+
+#pracs
+class PracsListView(ListView):
+    model = Pracs
+    template_name = 'blog/pracs-home.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'pracs'
+    ordering = ['-date_posted']
+    paginate_by = 3
+
+    # def get_context_data(self,**kwargs):
+    #     context = super(PracsListView,self).get_context_data(**kwargs)
+    #     context['filter'] = PracsFilter(self.request.GET,queryset=self.get_queryset())
+    #     return context
+
+    # def get_queryset(self):
+    #     return Pracs.objects.all()
+
+class PracsDetailView(DetailView):
+    model = Pracs
+
+
+class PracsCreateView(LoginRequiredMixin, CreateView):
+    model = Pracs
+    fields = ['topic', 'question', 'pracs_author', 'author_name', 'fileMy',
+    'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
+
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_absolute_url(self):
+        return "pracs-home/"
+
+class PracsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Pracs
+    fields = ['topic', 'question', 'pracs_author', 'author_name', 'fileMy',
+    'sub', 'branch', 'academic_year', 'desc']
+    template_name = 'blog/enotes_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        prac = self.get_object()
+        if self.request.user == prac.author:
+            return True
+        return False
+
+class PracsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Pracs
+    success_url = '/pracs/'
     template_name = 'blog/post_confirm_delete.html'
 
     def test_func(self):
