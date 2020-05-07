@@ -10,7 +10,7 @@ from django.views.generic import (
 from .models import Post, Enotes, QuesPaper, Pracs
 from django.contrib.auth.models import User
 
-from .filters import EnotesFilter, QuesPaperFilter
+from .filters import EnotesFilter, QuesPaperFilter, PracsFilter
 
 def home(request):
     context = {
@@ -214,19 +214,19 @@ class QuesPaperDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 #pracs
 class PracsListView(ListView):
-    model = Pracs
+    # model = Pracs
     template_name = 'blog/pracs-home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'pracs'
     ordering = ['-date_posted']
     paginate_by = 3
 
-    # def get_context_data(self,**kwargs):
-    #     context = super(PracsListView,self).get_context_data(**kwargs)
-    #     context['filter'] = PracsFilter(self.request.GET,queryset=self.get_queryset())
-    #     return context
+    def get_context_data(self,**kwargs):
+        context = super(PracsListView,self).get_context_data(**kwargs)
+        context['filter'] = PracsFilter(self.request.GET,queryset=self.get_queryset())
+        return context
 
-    # def get_queryset(self):
-    #     return Pracs.objects.all()
+    def get_queryset(self):
+        return Pracs.objects.all()
 
 class PracsDetailView(DetailView):
     model = Pracs

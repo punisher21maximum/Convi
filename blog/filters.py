@@ -1,6 +1,6 @@
 import django_filters
 
-from . models import Enotes, QuesPaper
+from . models import Enotes, QuesPaper, Pracs
 
 class EnotesFilter(django_filters.FilterSet):
 
@@ -50,6 +50,29 @@ class QuesPaperFilter(django_filters.FilterSet):
 			'author'	
 		)
 
+class PracsFilter(django_filters.FilterSet):
+
+	topic = django_filters.CharFilter(lookup_expr='icontains',label='topic' )
+	question = django_filters.CharFilter(lookup_expr='icontains',label='question', field_name='author')
+	author_name = django_filters.CharFilter(lookup_expr='icontains',label='created by')
+	desc = django_filters.CharFilter(lookup_expr='icontains',label='Desc')
+ 
+	class Meta:
+		model = Pracs
+		fields = (
+			#4
+			'topic',
+			'question',
+			'pracs_author',
+		 	'author_name',
+		 	#2
+			'academic_year',
+			'sub',
+			'branch',
+			#1
+			'desc',
+			'author'	
+		)
 
 
 

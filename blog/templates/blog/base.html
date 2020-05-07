@@ -75,7 +75,26 @@
           <br><br><br><br>
         </div>
 
-        <div class="col-2"></div>
+        <div class="col-2" style="padding: ;">
+            <div class="content-section">
+              
+              <p class=''>Add new post
+                <ul class="list-group">
+                  <li class="list-group-item "><a class="" href="{% url 'pracs-create' %}">Practical</a></li>
+                  <li class="list-group-item ">  <a class=" " href="{% url 'enotes-create' %}">Enotes</a></li>    
+                <li class="list-group-item "><a class=" " href="{% url 'ques-paper-create' %}">Question Paper</a>
+                </li>
+                <hr>
+                <p class=''>Handle password</p>
+                {% if user.is_authenticated %}
+                 <li class="list-group-item list-group-item-light"><a class=" " href="#">Reset Password</a></li>
+                 <li class="list-group-item list-group-item-light"><a class=" " href="#">Change Password</a></li>
+                 {% endif %}
+                   
+                </ul>
+              </p>
+            </div>
+        </div>
 
       </div>
     </main>
