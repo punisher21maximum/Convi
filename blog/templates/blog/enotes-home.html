@@ -48,7 +48,7 @@
     {% for enote in filter.qs %}
 
 <!-- card -->
-      <div class="card m-2 rounded-0 card_shadow" style="width: 17rem; ">
+      <div class="card m-2 rounded-0 card_shadow" style="width: 19rem; ">
 
         <a class="article-title" href="{% url 'enotes-detail' enote.id %}"><img style="height:200px; " class="card-img-top rounded-0" src="{{ enote.author.profile.image.url }}"  alt="..."></a>
         
