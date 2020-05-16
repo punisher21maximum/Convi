@@ -37,6 +37,7 @@ class ProfileTeacherUpdateForm(forms.ModelForm):
         fields = ['branch', 'post_of_teacher']
 
 
-
+class ConfirmEmailForm(forms.Form):
+    OTP = forms.CharField()
 
         

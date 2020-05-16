@@ -6,8 +6,22 @@ from .forms import (
     UserUpdateForm, 
     ProfileUpdateForm, 
     ProfileStudentUpdateForm,
-    ProfileTeacherUpdateForm
+    ProfileTeacherUpdateForm,
+    ConfirmEmailForm#reg
 )
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+
+def test_email():
+    subject = 'Testing email'
+    message = "how are you man"
+    from_e = "beyond21max@gmail.com"
+    to_email = "vishal7x7@gmail.com"
+    send_mail(subject, message, from_e, [to_email])
+
+#generate otp
+import random
+OTP = ''
 
 
 def register(request):
@@ -17,14 +31,19 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to log in')
-            return redirect('login')
+            return redirect('confirm_email')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+#register
+def confirm_email(request):
+    form = ConfirmEmailForm()
+    return render(request, 'users/confirm_email.html', {'form': form})
 
 @login_required
 def profile(request):
+    test_email() ; print("email_sent")
     flag = 's'
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)

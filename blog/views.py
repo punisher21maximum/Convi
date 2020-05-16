@@ -39,9 +39,19 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
-
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+def test_email():
+    subject = 'Testing email'
+    message = "how are you man"
+    from_e = "vishal7x7@gmail.com"
+    to_email = "vishal7x7@gmail.com"
+    send_mail(subject, message, "vishal7x7@gmail.com", ["vishal7x7@gmail.com"],
+        auth_user="vishal7x7@gmail.com", auth_password="Maxeffort@21")
 class PostDetailView(DetailView):
     model = Post
+    # test_email()
+
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -111,7 +121,7 @@ class EnotesDetailView(DetailView):
 class EnotesCreateView(LoginRequiredMixin, CreateView):
     model = Enotes
     fields = ['topic', 'unit', 'notes_author', 'author_name', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):
@@ -124,7 +134,7 @@ class EnotesCreateView(LoginRequiredMixin, CreateView):
 class EnotesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Enotes
     fields = ['topic', 'unit', 'notes_author', 'author_name', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):
@@ -173,7 +183,7 @@ class QuesPaperDetailView(DetailView):
 class QuesPaperCreateView(LoginRequiredMixin, CreateView):
     model = QuesPaper
     fields = ['sem_exam', 'total_marks', 'exam_date', 'exam_type', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
 
@@ -187,7 +197,7 @@ class QuesPaperCreateView(LoginRequiredMixin, CreateView):
 class QuesPaperUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = QuesPaper
     fields = ['sem_exam', 'total_marks', 'exam_date', 'exam_type', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):
@@ -235,7 +245,7 @@ class PracsDetailView(DetailView):
 class PracsCreateView(LoginRequiredMixin, CreateView):
     model = Pracs
     fields = ['topic', 'question', 'pracs_author', 'author_name', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
 
@@ -249,7 +259,7 @@ class PracsCreateView(LoginRequiredMixin, CreateView):
 class PracsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Pracs
     fields = ['topic', 'question', 'pracs_author', 'author_name', 'fileMy',
-    'sub', 'branch', 'academic_year', 'desc']
+    'sub', 'sub_new', 'branch', 'academic_year', 'desc']
     template_name = 'blog/enotes_form.html'
 
     def form_valid(self, form):

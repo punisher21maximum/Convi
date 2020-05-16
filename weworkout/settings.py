@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'django_filters',
+    'admin_auto_filters',#search in dropdown
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -142,6 +143,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER =os.environ.get('EMAIL_USER')#"vishal7x7@gmail.com"
-EMAIL_HOST_USER ="vishal7x7@gmail.com"
+EMAIL_HOST_USER ="beyond21max@gmail.com"
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')#"Maxeffort@21"
 EMAIL_HOST_PASSWORD = "Maxeffort@21"

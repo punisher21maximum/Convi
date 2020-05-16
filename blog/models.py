@@ -4,15 +4,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django import forms
 
-'''
-subjects 
-
-CS : 
-
-
-'''
-
-
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -45,7 +36,6 @@ class Common(models.Model):
 	class Meta:
 		abstract = True
 
-	
 
 class College(Common):
 	Year_CHOICES=[('FY','I'),('SY','II'),('TY','III'),('BE','IV')]
@@ -57,7 +47,14 @@ class College(Common):
 		('AM1','Applied Mechanics'),('EI','Engineering Informatics'),('DBMS','DBMS'),('SYSTEM ENGG','SYSTEM ENGG'),
 		('MATHS','MATHS'),('PSYCHO','PSYCHO'),('MATERIAL ENGG','MATERIAL ENGG'),('PYTHON','PYTHON'),('CPP','CPP'),
 		('EEE','EEE'),	('None','none')]	
-	sub=models.CharField(max_length=lenn,choices=Subject_CHOICES,default='NO SUBJECT')
+	sub=models.CharField(max_length=lenn,choices=Subject_CHOICES,default='NO SUBJECT',
+		help_text="if sub not in the list, write sub in sub_new")
+	sub_new = models.CharField(max_length=100, blank=True,
+		help_text="write full name of subject like not DEM but Digital Electronics and Microprocessors")
+	# widget = {
+	# 	'sub' : 
+
+	# }
 	#dependent forms
 	# course_code = based on the subject, branch, year ,not taken from user
 
@@ -87,7 +84,8 @@ class QuesPaper(College):
 	('ISE','ISE')]
 	sem_exam = models.CharField(max_length=100,choices=Sem_exam_CHOICES,default='ESE')
 	total_marks = models.PositiveIntegerField(blank=True, default=100)
-	exam_date = models.DateTimeField(default=timezone.now)
+	exam_date = models.DateTimeField(default=timezone.now, 
+		help_text="YYYY-DD-MM")
 	Exam_type_CHOICES = [ ('Regular', 'Regular'), ('Re-exam', 'Re-exam')]
 	exam_type = models.CharField(max_length=100,choices=Exam_type_CHOICES,default='Rgular')
 	#soft copy
@@ -114,3 +112,6 @@ class Pracs(College):
 
 	def get_absolute_url(self):
 		return reverse('pracs-detail', kwargs={'pk': self.pk})
+
+
+		
