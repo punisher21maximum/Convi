@@ -43,7 +43,7 @@ def confirm_email(request):
 
 @login_required
 def profile(request):
-    test_email() ; print("email_sent")
+     
     flag = 's'
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)

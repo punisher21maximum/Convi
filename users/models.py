@@ -5,7 +5,7 @@ from PIL import Image
 from django.core.validators import RegexValidator
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='def.jpg', upload_to='profile_pics')
     first_name = models.CharField(max_length=50, blank="True")
     last_name = models.CharField(max_length=50, blank="True")
     phone_regex = RegexValidator(regex = r'^[9876]\d{9}$', 
